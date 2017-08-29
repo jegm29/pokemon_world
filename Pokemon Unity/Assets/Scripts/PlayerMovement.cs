@@ -1155,9 +1155,14 @@ public class PlayerMovement : MonoBehaviour
 
     public IEnumerator wildEncounter(WildPokemonInitialiser.Location encounterLocation)
     {
+        float numero;
+        System.Random aleatorio = new System.Random();
+        numero = aleatorio.Next(0, 10);
+
         if (accessedMapSettings.getEncounterList(encounterLocation).Length > 0)
         {
-            if (Random.value <= accessedMapSettings.getEncounterProbability())
+            if (  numero <= accessedMapSettings.getEncounterProbability())
+
             {
                 if (setCheckBusyWith(Scene.main.Battle.gameObject))
                 {
@@ -1166,7 +1171,7 @@ public class PlayerMovement : MonoBehaviour
 
                     //SceneTransition sceneTransition = Dialog.transform.GetComponent<SceneTransition>();
 
-                    yield return StartCoroutine(ScreenFade.main.FadeCutout(false, ScreenFade.slowedSpeed, null));
+                    yield return StartCoroutine(ScreenFade.main.FadeCutout(true, ScreenFade.slowedSpeed, null));
                     //yield return new WaitForSeconds(sceneTransition.FadeOut(1f));
                     Scene.main.Battle.gameObject.SetActive(true);
                     StartCoroutine(Scene.main.Battle.control(accessedMapSettings.getRandomEncounter(encounterLocation)));
